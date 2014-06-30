@@ -1,11 +1,11 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 'android-L'
+    compileSdkVersion 19
     buildToolsVersion "19.1.0"
 
     defaultConfig {
-        applicationId "com.antonioleiva.recycledviewextensions.app"
+        applicationId "com.antonioleiva.recycledviewextensions"
         minSdkVersion 'L'
         targetSdkVersion 'L'
         versionCode 1
@@ -22,6 +22,4 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:recyclerview-v7:21.+'
-    compile 'com.squareup.picasso:picasso:1.+'
-    compile project(':library')
 }

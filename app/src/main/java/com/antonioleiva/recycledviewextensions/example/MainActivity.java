@@ -3,11 +3,12 @@ package com.antonioleiva.recycledviewextensions.example;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.antonioleiva.recycledviewextensions.GridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class MainActivity extends Activity {
         recyclerView.setHasFixedSize(true);
         final MyRecyclerAdapter adapter;
         recyclerView.setAdapter(adapter = new MyRecyclerAdapter(createMockList(), R.layout.item));
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<ViewModel>() {
