@@ -1,5 +1,8 @@
 package com.antonioleiva.recyclerviewextensions.example;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -16,6 +20,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     private List<ViewModel> items;
     private OnRecyclerViewItemClickListener<ViewModel> itemClickListener;
     private int itemLayout;
+    private PaletteManager paletteManager = new PaletteManager();
 
     public MyRecyclerAdapter(List<ViewModel> items, int itemLayout) {
         this.items = items;
@@ -28,12 +33,17 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         return new ViewHolder(v);
     }
 
-    @Override public void onBindViewHolder(ViewHolder holder, int position) {
-        ViewModel item = items.get(position);
-        holder.text.setText(item.getText());
-        holder.image.setImageBitmap(null);
-        Picasso.with(holder.image.getContext()).load(item.getImage()).into(holder.image);
+    @Override public void onBindViewHolder(final ViewHolder holder, int position) {
+        final ViewModel item = items.get(position);
         holder.itemView.setTag(item);
+        holder.text.setText(item.getText());
+        Picasso.with(holder.image.getContext()).load(item.getImage()).into(holder.image, new Callback() {
+            @Override public void onSuccess() {
+                holder.updatePalette(paletteManager);
+            }
+
+            @Override public void onError() {}
+        });
     }
 
     @Override public int getItemCount() {
@@ -62,6 +72,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         this.itemClickListener = listener;
     }
 
+    private static int setColorAlpha(int color, int alpha) {
+        return (alpha << 24) | (color & 0x00ffffff);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView image;
         public TextView text;
@@ -70,6 +84,19 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.image);
             text = (TextView) itemView.findViewById(R.id.text);
+        }
+
+        public void updatePalette(PaletteManager paletteManager) {
+            String key = ((ViewModel)itemView.getTag()).getImage();
+            Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+            paletteManager.getPalette(key, bitmap, new PaletteManager.Callback() {
+                @Override
+                public void onPaletteReady(Palette palette) {
+                    int bgColor = palette.getDarkVibrantColor().getRgb();
+                    text.setBackgroundColor(setColorAlpha(bgColor, 192));
+                    text.setTextColor(palette.getLightMutedColor().getRgb());
+                }
+            });
         }
     }
 }
