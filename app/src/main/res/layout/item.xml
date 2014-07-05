@@ -22,8 +22,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:textColor="@android:color/white"
         android:gravity="center"
-        android:background="@android:color/black"
+        android:background="#B000"
         android:padding="@dimen/spacing_large"
         tools:text="Hero text"
         />
