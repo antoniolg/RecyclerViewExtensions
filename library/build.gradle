@@ -5,7 +5,7 @@ android {
     buildToolsVersion "19.1.0"
 
     defaultConfig {
-        applicationId "com.antonioleiva.recycledviewextensions"
+        applicationId "com.antonioleiva.recyclerviewextensions"
         minSdkVersion 'L'
         targetSdkVersion 'L'
         versionCode 1

@@ -1,4 +1,4 @@
-package com.antonioleiva.recycledviewextensions.example;
+package com.antonioleiva.recyclerviewextensions.example;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +32,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
         ViewModel item = items.get(position);
         holder.text.setText(item.getText());
         holder.image.setImageBitmap(null);
-        Picasso.with(holder.image.getContext()).cancelRequest(holder.image);
         Picasso.with(holder.image.getContext()).load(item.getImage()).into(holder.image);
         holder.itemView.setTag(item);
     }

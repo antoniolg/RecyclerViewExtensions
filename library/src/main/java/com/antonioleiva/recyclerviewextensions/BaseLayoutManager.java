@@ -1,4 +1,4 @@
-package com.antonioleiva.recycledviewextensions;
+package com.antonioleiva.recyclerviewextensions;
 
 /*
  * Copyright (C) 2014 The Android Open Source Project

@@ -1,4 +1,4 @@
-package com.antonioleiva.recycledviewextensions;
+package com.antonioleiva.recyclerviewextensions;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

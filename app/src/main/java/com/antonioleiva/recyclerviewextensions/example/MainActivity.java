@@ -1,4 +1,4 @@
-package com.antonioleiva.recycledviewextensions.example;
+package com.antonioleiva.recyclerviewextensions.example;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.antonioleiva.recycledviewextensions.GridLayoutManager;
+import com.antonioleiva.recyclerviewextensions.GridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;

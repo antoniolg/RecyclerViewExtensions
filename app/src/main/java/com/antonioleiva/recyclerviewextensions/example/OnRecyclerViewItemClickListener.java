@@ -1,4 +1,4 @@
-package com.antonioleiva.recycledviewextensions.example;
+package com.antonioleiva.recyclerviewextensions.example;
 
 import android.view.View;
 
