@@ -78,8 +78,9 @@ public class GridLayoutManager extends BaseLayoutManager {
             int consumed = mOrientationHelper.getDecoratedMeasurement(view);
             int left, top, right, bottom;
             if (mOrientation == VERTICAL) {
-                if (isLayoutRTL()) {
-                    right = getWidth() - getPaddingRight();
+                if (isLayoutRTL() == (renderState.mLayoutDirection
+                        == RenderState.LAYOUT_END)) {
+                    right = getWidth() - getPaddingRight() - itemWidth * columnCount;
                     left = right - mOrientationHelper.getDecoratedMeasurementInOther(view);
                 } else {
                     left = columnCount * itemWidth + getPaddingLeft();
