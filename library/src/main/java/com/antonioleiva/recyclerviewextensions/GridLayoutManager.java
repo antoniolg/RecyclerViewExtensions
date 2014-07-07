@@ -78,8 +78,9 @@ public class GridLayoutManager extends BaseLayoutManager {
             int consumed = mOrientationHelper.getDecoratedMeasurement(view);
             int left, top, right, bottom;
             if (mOrientation == VERTICAL) {
-                if (isLayoutRTL()) {
-                    right = getWidth() - getPaddingRight();
+                if (isLayoutRTL() == (renderState.mLayoutDirection
+                        == RenderState.LAYOUT_END)) {
+                    right = getWidth() - getPaddingRight() - itemWidth * columnCount;
                     left = right - mOrientationHelper.getDecoratedMeasurementInOther(view);
                 } else {
                     left = columnCount * itemWidth + getPaddingLeft();
@@ -93,13 +94,14 @@ public class GridLayoutManager extends BaseLayoutManager {
                     bottom = renderState.mOffset + consumed;
                 }
             } else {
-                top = columnCount * itemWidth + getPaddingTop();
-                bottom = top + mOrientationHelper.getDecoratedMeasurementInOther(view);
-
                 if (renderState.mLayoutDirection == RenderState.LAYOUT_START) {
+                    bottom = getHeight() - getPaddingBottom() - itemWidth * columnCount;
+                    top = bottom - mOrientationHelper.getDecoratedMeasurementInOther(view);
                     right = renderState.mOffset;
                     left = renderState.mOffset - consumed;
                 } else {
+                    top = columnCount * itemWidth + getPaddingTop();
+                    bottom = top + mOrientationHelper.getDecoratedMeasurementInOther(view);
                     left = renderState.mOffset;
                     right = renderState.mOffset + consumed;
                 }
