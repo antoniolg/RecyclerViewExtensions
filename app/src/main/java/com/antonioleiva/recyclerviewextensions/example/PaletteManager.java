@@ -16,13 +16,6 @@ public class PaletteManager {
         if (palette != null)
             callback.onPaletteReady(palette);
         else
-//            Palette.generateAsync(bitmap, 24, new Palette.PaletteAsyncListener() {
-//                @Override
-//                public void onGenerated(Palette palette) {
-//                    cache.put(key, palette);
-//                    callback.onPaletteReady(palette);
-//                }
-//            }
             new Palette.Builder(bitmap).generate(new Palette.PaletteAsyncListener() {
                 @Override
                 public void onGenerated(Palette palette) {
