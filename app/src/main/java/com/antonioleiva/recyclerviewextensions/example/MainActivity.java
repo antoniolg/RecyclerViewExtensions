@@ -3,12 +3,12 @@ package com.antonioleiva.recyclerviewextensions.example;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.antonioleiva.recyclerviewextensions.GridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,18 +26,20 @@ public class MainActivity extends Activity {
         recyclerView.setHasFixedSize(true);
         final MyRecyclerAdapter adapter;
         recyclerView.setAdapter(adapter = new MyRecyclerAdapter(createMockList(), R.layout.item));
-        recyclerView.setLayoutManager(new GridLayoutManager(this));
+        LinearLayoutManager linearLayoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         adapter.setOnItemClickListener(new OnRecyclerViewItemClickListener<ViewModel>() {
-            @Override public void onItemClick(View view, ViewModel viewModel) {
+            @Override
+            public void onItemClick(View view, ViewModel viewModel) {
                 adapter.remove(viewModel);
             }
         });
     }
 
     private List<ViewModel> createMockList() {
-        List<ViewModel> items = new ArrayList<ViewModel>();
+        List<ViewModel> items = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             items.add(new ViewModel(i, "Item " + (i + 1), MOCK_URL + (i % 10 + 1)));
         }
@@ -58,9 +60,6 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 }
